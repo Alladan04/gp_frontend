@@ -4,6 +4,8 @@ import "./OperationPage.css"
 import { GetOperation} from "./GetOperation";
 import BreadCrumbs from '../BreadCrumb/BreadCrumb';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import MyNavBar from '../NavBar/NavBar';
 interface  Operation {
     data: {
     id: number;
@@ -52,12 +54,14 @@ const Operation = () => {
    
    
     return (<>
-        <main>
+     <MyNavBar></MyNavBar>
         <BreadCrumbs crumbs ={crumbs}></BreadCrumbs>
+        <main>  
   <div className="card">
     <div className="card__name">
       <div className="icon">
-        <a href="http://localhost:3000/operation"><i className="fa fa-arrow-left"></i></a>
+        <Link to ='/operation'><i className="fa fa-arrow-left"></i></Link>
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
       </div>
       
@@ -97,21 +101,6 @@ const Operation = () => {
     </div>
   </div>
 </main>
-        <div className="container-1">
-            <span>
-                <img style={{ width: '30%', height: 'auto' }} src={Operation_.image} alt="" />
-            </span>
-
-            <h1 className="short_text">{Operation_.data.name}</h1>
-
-            <hr className="line" />
-
-            <div className="container">
-                <p className="info">
-                {Operation_.data.description}
-                </p>
-            </div>
-        </div>
         </>
     );
 };

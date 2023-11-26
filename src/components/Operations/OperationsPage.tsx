@@ -6,9 +6,7 @@ import {
 import OperationCard from './OperationCard.tsx';
 import SearchOperation from './Search.tsx';
 import './styles/OperationsPage.css'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import MyNavBar from '../NavBar/NavBar.tsx'
 //import { Breadcrumb } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import BreadCrumbs from '../BreadCrumb/BreadCrumb.tsx'
@@ -42,20 +40,7 @@ function Operations() {
     return (
         <>
    
-      <Navbar expand="lg"  bg=" #333"  style={{ maxHeight: '50px', marginBottom :'70px'}} data-bs-theme="dark" >
-      <Container >
-        <Navbar.Brand href="#home">BinaryOperations</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Операции</Nav.Link>
-            <Nav.Link href="#link">Заявки</Nav.Link>
-            
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    
+     <MyNavBar></MyNavBar>
      
         <div className='search_in_menu'><SearchOperation setOperationData={setOperationData} setTitleData={setTltleData}/></div>
         
