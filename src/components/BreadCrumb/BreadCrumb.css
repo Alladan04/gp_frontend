@@ -1,0 +1,20 @@
+.breadcrumb{
+     max-width: 1200px;
+     margin:20px auto;
+}
+.breadcrumb > *{
+     display:inline-block;
+     margin-right: 10px;
+}
+ .breadcrumb .crumb:after{
+     content:'>';
+     color: aliceblue;
+     margin-left: 10px;
+ }
+ .breadcrumb.crumb:last-child:after{
+     display: none;
+ }
+
+ .breadcrumb .crumb a{
+     color:aliceblue;
+ }
