@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 function MyNavBar(){
-
+//lolol
      return (
      <>
           <Navbar expand="lg"  bg=" #333"  style={{ maxHeight: '50px', marginBottom :'70px'}} data-bs-theme="dark" >
