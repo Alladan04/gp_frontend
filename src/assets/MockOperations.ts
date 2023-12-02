@@ -1,5 +1,4 @@
-//import defaultImage from './Default.svg';
-
+import { getimg } from "./img";
 const mockOperations = [
     {
         data:{
@@ -9,7 +8,7 @@ const mockOperations = [
         description: 'лололололо',
         status: 'действует',
        },
-       image: "https://www.flaticon.com/ru/free-icon/no-photo_4054617",
+       image: getimg(),
        
     },
     {
@@ -20,7 +19,7 @@ const mockOperations = [
         description: 'лололололо',
         status: 'действует',
        },
-       image: "https://www.flaticon.com/ru/free-icon/no-photo_4054617",
+       image: getimg(),
        
     },
     {
@@ -31,7 +30,7 @@ const mockOperations = [
         description: 'лололололо',
         status: 'действует',
        },
-       image: "https://www.flaticon.com/ru/free-icon/no-photo_4054617",
+       image: getimg(),
        
     }
 ]
