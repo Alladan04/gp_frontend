@@ -9,7 +9,7 @@ function App() {
 
   return (
     
-    <BrowserRouter basename = '/gp_frontend/'>
+    <BrowserRouter basename = '/gp_frontend'>
             <Routes>
                 <Route path="operation/"  element={<Operations/>}/>
                 <Route path="operation/:id" element={<Operation/>} />

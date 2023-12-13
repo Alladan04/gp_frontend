@@ -36,9 +36,18 @@ function Operations() {
     const location = useLocation();
    
     let crumb ={data:[{name:"Operation", path:location.pathname}]};
-   
+    const no_data = (Operation_.data.length ==0);
+    let button;
+    if (no_data) {
+         button = <h1 style = {{color:'white',marginBottom:'200px'}}>-No data found!</h1> } 
+    else 
+    {     
+        button =  Operation_.data.map((object) => (
+            <OperationCard key = {object.pk} operationData={object}/>
+            ))
+       }
     return (
-        <>
+        <> 
    
      <MyNavBar></MyNavBar>
      
@@ -47,10 +56,8 @@ function Operations() {
         <ul className="card-grid" >
         <BreadCrumbs crumbs = {crumb}></BreadCrumbs>
             <div className="container flex-container">
-            
-                {Operation_.data.map((object) => (
-                <OperationCard key = {object.pk} operationData={object}/>
-                ))}
+                
+              {button}
        
             </div>
             </ul>

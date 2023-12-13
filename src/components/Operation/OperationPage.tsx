@@ -54,9 +54,10 @@ const Operation = () => {
    
    
     return (<>
-     <MyNavBar></MyNavBar>
-        <BreadCrumbs crumbs ={crumbs}></BreadCrumbs>
+  
         <main>  
+        <MyNavBar></MyNavBar>
+        <BreadCrumbs crumbs ={crumbs}></BreadCrumbs>
   <div className="card">
     <div className="card__name">
       <div className="icon">

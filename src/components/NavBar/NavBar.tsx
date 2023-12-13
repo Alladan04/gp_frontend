@@ -6,7 +6,7 @@ function MyNavBar(){
 //lolol
      return (
      <>
-          <Navbar expand="lg"  bg=" #333"  style={{ maxHeight: '50px', marginBottom :'70px'}} data-bs-theme="dark" >
+          <Navbar expand="sm"  bg=" #333"  style={{ position: 'sticky',  top: 0, backgroundColor:"#333"}} fixed = 'top' data-bs-theme="dark" >
           <Container >
             <Navbar.Brand href="#home">BinaryOperations</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
