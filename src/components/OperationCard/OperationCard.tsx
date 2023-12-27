@@ -1,49 +1,57 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./FineCard.scss"
+//import "./FineCard.scss"
 //import CustomButton from "../CustomButton/CustomButton";
-import {useDraft} from "../../hooks/useDraft";
+
+import {useDraftRequest} from "../../hooks/useRequest";
 //import {Fine} from "../Interfaces";
 import {useAuth} from "../../hooks/useAuth";
+import { Button } from 'react-bootstrap';
+import "./OperationCard.css"
+import OperationButton from '../Buttons/OperationButton';
 
-
-const FineCard = ({fine}:{fine:Fine}) => {
+const OperationCard = ({operation}:{operation: Operation}) => {
 
   const {is_authenticated, is_moderator} = useAuth()
 
-  const {addFineToBreach, deleteBreachFromFine} = useDraftBreach()
+  const {addOperationToRequest, deleteOperationFromRequest} = useDraftRequest()
 
   const handleAdd = async () => {
-    await addFineToBreach(fine.id)
+    await addOperationToRequest(operation.pk)
   }
 
   const handleDelete = async () => {
-    await deleteBreachFromFine(fine.id)
+    await deleteOperationFromRequest(operation.pk)
   }
+  
 
   return (
-    <div className="card">
-        <div className="background-img-white">
-          <div className="background-img" style={{backgroundImage: `url(${fine.image})`}}>
-            <div className="background-img-black">
-              <div className="box">
-                <div className="content">
-                  <h2>{fine.price}₽</h2>
-                  <h3>{fine.title}</h3>
-                    <div className="buttons-container">
-                      <Link to={`/fines/${fine.id}`}>
-                        <CustomButton text="Подробнее"  />
-                      </Link>
-                      {is_authenticated && !is_moderator && location.pathname.includes("fines") && <CustomButton text="Добавить" onClick={handleAdd} /> }
-                      {is_authenticated && !is_moderator && location.pathname.includes("draft") && <CustomButton text="Удалить" onClick={handleDelete} /> }
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <>
+  
+    <div className="my-card">
+  <div className="face face1">
+  
+    <div className="content">
+      
+      <img src={"data:image/png;base64,"+operation.image} />
+      <h3>{operation.name}</h3>
     </div>
+  </div>
+  <div className="face face2">
+    <div className="content">
+      <div>
+      <Link to={`/operation/${operation.pk}`}>
+                <OperationButton text = "Подробнее" >ADD</OperationButton>
+              </Link>
+              {is_authenticated && !location.pathname.includes("draft") && <Button onClick={handleAdd} /> }
+              {is_authenticated && location.pathname.includes("draft") && <Button  onClick={handleDelete} /> }
+      </div>
+    </div>
+  </div>
+</div>
+
+</>
   )
 }
 
-export default FineCard
+export default OperationCard

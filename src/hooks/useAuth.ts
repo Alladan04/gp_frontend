@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {setUser, resetUser} from "../slices/authSlice";
+import {updateUser, cleanUser} from "../slices/authSlice";
 import axios from "axios";
 import { useSid } from './useSid';
 
@@ -14,24 +14,36 @@ export function useAuth() {
   const { session_id, setSid, resetSid } = useSid()
 
   const dispatch = useDispatch()
-/*
   const setUser = (value: any) => {
-    dispatch(updateUser(value))
-  }
+    // Сохраняем данные пользователя в localStorage
+    console.log("in Set user")
+    localStorage.setItem('user', JSON.stringify(value));
+    dispatch(updateUser(value));
+  };
 
   const resetUser = () => {
-    dispatch(cleanUser())
-  }
-*/
+    // Удаляем данные пользователя из localStorage
+    localStorage.removeItem('user');
+    dispatch(cleanUser());
+  };
+
+  const initializeUserFromStorage = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      dispatch(updateUser(JSON.parse(storedUser)));
+    }
+  };
   const logOut = async () => {
 
     try {
 
-      const response = await axios(`http://localhost:8000/profile/logout/`, {
+      const response = await axios(`http://localhost:8000/profile/logout`, {
         method: "POST",
         headers: {
           'authorization': session_id
-        }
+        },
+       
+        
       })
 
       if (response.status == 200)
@@ -48,12 +60,13 @@ export function useAuth() {
 
   const login = async (formData: any) => {
 
-      const response = await axios(`http://127.0.0.1:8000/profile/login/`, {
+      const response = await axios(`http://127.0.0.1:8000/profile/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
-        data: formData as FormData
+        data: formData as FormData,
+        withCredentials:true
       })
 
       if (response.status == 201) {
@@ -62,7 +75,7 @@ export function useAuth() {
         console.log(response.data['session_id'])
 
         setSid(response.data['session_id'])
-
+        console.log(response.data['session_id'], "|||||", session_id)
         const data = {
           is_authenticated: true,
           is_moderator: response.data["is_staff"],
@@ -70,7 +83,7 @@ export function useAuth() {
           user_name: response.data["username"],
         }
       
-      console.log(`Добро пожаловать, ${response.data["username"]}!`)
+      console.log(`Login ${response.data["username"]}!`)
 
       setUser(data)
 
@@ -83,7 +96,7 @@ export function useAuth() {
 
 
   const auth = async () => {
-
+    console.log("in USE AUTH")
     if (is_authenticated)
     {
       return true
@@ -93,15 +106,20 @@ export function useAuth() {
       return false
     }
 
-    const response = await axios(`http://localhost:8000/profile/auth/`, {
+    const response = await axios(`http://localhost:8000/profile/auth`, {
         method: "POST",
+        
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           'authorization': session_id
+        
         },
-    })
+        withCredentials:true,
+        
 
-  if (response.status == 200) {
+    } )
+    console.log("after axios")
+  if (response.status == 200 || response.status==201) {
 
     const data = {
         is_authenticated: true,
@@ -110,7 +128,7 @@ export function useAuth() {
         user_name: response.data["username"],
     }
 
-    console.log(`Добро пожаловать, ${response.data["username"]}!`)
+    console.log(`Auth ${response.data["username"]}!`)
 
     setUser(data)
 
@@ -129,5 +147,6 @@ export function useAuth() {
     logOut,
     login,
     auth,
+    initializeUserFromStorage
   };
 }

@@ -1,0 +1,16 @@
+.op_button{
+     cursor: pointer;
+     border: 1px solid #ff0057;
+     padding: 14px 30px;
+     border-radius: 200px;
+     color: #fff;
+     background: #ff0057;
+     font-family: "Open Sans", sans-serif;
+     font-size: 16px;
+     transition: 200ms;
+     
+     &:hover{
+       background: #fff;
+       color: #ff0057;
+     }
+   }

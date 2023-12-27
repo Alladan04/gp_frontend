@@ -12,6 +12,8 @@ ReactDOM.createRoot(document.getElementById('myroot')!).render(
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 //import Operations from "./pages/OperationsPage/OperationsPage.tsx";
 import OperationPage from "./page/OperationPage/OperationPage.tsx"
+import OperationsPage from "./page/OperationsPage/OperationsPage.tsx"
+import LoginPage from "./page/LoginPage/LoginPage.tsx";
 //import Breaches from "./pages/BreachesPage/BreachesPage.tsx";
 import ReactDOM from "react-dom/client";
 //import LoginPage from "./pages/LoginPage/LoginPage.tsx";
@@ -23,6 +25,8 @@ import "./page/OperationPage/OperationPage.css"
 //import "./styles/styles.scss"
 //import BreachPage from "./pages/BreachPage/BreachPage";
 import {QueryClient, QueryClientProvider} from "react-query";
+import ProfilePage from "./page/ProfilePage/ProfilePage.tsx";
+import RequestPage from "./page/RequestPage/RequestPage.tsx";
 //import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 
 const root = ReactDOM.createRoot(
@@ -40,17 +44,20 @@ root.render(
 
         <Provider store={store}>
 
-            <BrowserRouter basename="gp_frontend">
+            <BrowserRouter basename="/gp_frontend">
 
                 
 
                
 
                     <Routes>
-                    <Route path="/" element={<Navigate to="/" replace />} />
-                    <Route path="operation/" element={<OperationPage/>}/>
-                        <Route path="/operation/:id" element={<OperationPage/>}/>
-                        
+                        <Route path="/" element={<Navigate to="/" replace />} />
+                        <Route path="/operation" element={<OperationsPage/>}/>
+                        <Route path="operation/:id" element={<OperationPage/>}/>
+                        <Route path="login" element={<LoginPage/>}/>
+                        <Route path="profile/" element={<ProfilePage/>}/> 
+                        <Route path="request/" element={<RequestPage/>}/> 
+                        <Route path="*" element={<p>Path not resolved</p>} />
                     </Routes>
 
               

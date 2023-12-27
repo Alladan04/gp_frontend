@@ -14,13 +14,14 @@ body{
      margin-top: 100px;
      width: 100%;
      position: relative;
-     display: inline-block;
+     display: flex;
      justify-content: space-between;
    }
    
    .container .my-card{
      position: relative;
      cursor: pointer;
+	width:fit-content;
    }
    
    .container .my-card .face{
@@ -47,14 +48,20 @@ body{
    .container .my-card .face.face1 .content{
      opacity: 0.2;
      transition: 0.5s;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
    }
    
    .container .my-card:hover .face.face1 .content{
      opacity: 1;
+	
    }
    
    .container .my-card .face.face1 .content img{
      max-width: 100px;
+	align-self: center;
    }
    
    .container .my-card .face.face1 .content h3{
@@ -102,7 +109,6 @@ body{
    .my-card-grid {
      display: flex;
      flex-wrap: wrap;
-     gap: 20px;
    }
    
    

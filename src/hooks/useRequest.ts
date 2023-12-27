@@ -5,7 +5,7 @@ import {
 import axios from "axios";
 import {useSid} from "./useSid";
 
-export function useRequestBreach() {
+export function useDraftRequest() {
 
     const { session_id } = useSid()
 
@@ -30,6 +30,10 @@ export function useRequestBreach() {
         if (response.status != 404)
         {
             setRequest(response.data)
+            console.log("Request DATA", response.data)
+        }
+        else{
+            console.log('ERROR WHILE GETTING DRAFT REQUEST')
         }
     }
 
@@ -93,7 +97,9 @@ export function useRequestBreach() {
             setRequest(undefined)
         }
     }
-
+    const resetRequest = () => {
+        dispatch(updateRequest(null))
+    }
     const deleteOperationFromRequest= async (id:any) => {
         const response = await axios(`http://localhost:8000/request/operation/${id}`, {
             method: "DELETE",
@@ -114,6 +120,7 @@ export function useRequestBreach() {
         formRequest,
         deleteRequest,
         deleteOperationFromRequest,
-        fetchRequest
+        fetchRequest,
+        resetRequest
     };
 }
