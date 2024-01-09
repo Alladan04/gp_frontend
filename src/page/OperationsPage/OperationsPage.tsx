@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react'
 //import SearchOperations from './SearchBar/Search.tsx';
 //import OperationCard from "../../components/OperationCard/OperationCard";
 //import RequestBasket from "../../components/RequestBasket/RequestBasket";
+import Draft from '../../components/Draft/Draft';
+
 import "./OperationsPage.css"
 import axios from "axios";
 import {useSid} from "../../hooks/useSid";
@@ -19,6 +21,7 @@ const Operations = () => {
     });
 
     const [titleData, setTitlePage] = useState<string>("");
+ 
 
     const { session_id } = useSid()
 
@@ -46,14 +49,14 @@ const Operations = () => {
         }
     };
 
-    const filterOperations = (fines: any, searchText: any) => {
+    /*const filterOperations = (fines: any, searchText: any) => {
         return fines.filter((operation: any) => {
             const titleLowerCase = operation.title.toLowerCase();
             const searchTextLowerCase = searchText.toLowerCase();
             return titleLowerCase.includes(searchTextLowerCase);
         });
     };
-    
+    */
 
 
 
@@ -64,8 +67,8 @@ const Operations = () => {
  
     return (
      <div>
-           <MyNavbar></MyNavbar>
-
+           <MyNavbar request_id = {operations.request_id}></MyNavbar>
+           
                 <div className='search_in_menu'>
                 <SearchOperations title={titleData} setTitle={(newTitle) => {
                     setTitlePage(newTitle);

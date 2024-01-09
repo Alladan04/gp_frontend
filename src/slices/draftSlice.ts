@@ -1,7 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
-	request: undefined
+	request: undefined,
+	//items: undefined
 };
 
 const draftSlice = createSlice({
@@ -9,7 +10,9 @@ const draftSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		updateRequest(state, action) {
+		
 			state.request = action.payload
+			//state.items = action.payload.data.items
 		}
 	}
 })

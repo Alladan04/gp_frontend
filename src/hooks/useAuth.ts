@@ -34,6 +34,7 @@ export function useAuth() {
     }
   };
   const logOut = async () => {
+    console.log("In LOGOUT function")
 
     try {
 

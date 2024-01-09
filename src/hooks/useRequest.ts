@@ -17,9 +17,9 @@ export function useDraftRequest() {
         dispatch(updateRequest(value))
     }
 
-    const fetchRequest = async () => {
+    const fetchRequest = async (request_id: number |null) => {
 
-        const response = await axios(`http://localhost:8000/request/${request.id}`, {
+        const response = await axios(`http://localhost:8000/request/${request_id}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",

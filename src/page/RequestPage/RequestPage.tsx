@@ -1,73 +1,89 @@
 //import "./BreachPage.scss"
-import {useNavigate} from "react-router-dom";
-import {useDraftRequest} from "../../hooks/useRequest"
+import "./RequestPage.css"
+import {useNavigate, useParams} from "react-router-dom";
+//import {useDraftBreach} from "../../hooks/useDraftBreach";
+//import FineCard from "../../components/FineCard/FineCard";
+import { useDraftRequest } from "../../hooks/useRequest";
 import OperationCard from "../../components/OperationCard/OperationCard";
-import { useAuth } from "../../hooks/useAuth";
+import {useAuth} from "../../hooks/useAuth";
 import {useEffect} from "react";
+import RequestOperationCard from "../../components/RequestOperationCard/RequestOperationCard";
 
 const RequestPage = () => {
+    console.log("in request page")
+    const { id } = useParams();
+    const request_id = id ? parseInt(id, 10) : null;
+
     const navigate = useNavigate()
 
-    const {is_authenticated, auth} = useAuth()
-    useEffect(()=>
-    {
-     console.log("calling auth from request page")
-     auth()
-    }, [])
-
-    const {request, formRequest, deleteRequest} = useDraftRequest()
+    const {is_authenticated} = useAuth()
+    const {request, formRequest, deleteRequest, fetchRequest} = useDraftRequest()
+    console.log(request)
+    // useEffect(() => {
+    //     if (!is_authenticated) {
+    //         navigate("/fines")
+    //     }
+    // }, [])
 
     useEffect(() => {
-        if (!is_authenticated) {
-          console.log("Not Authed")
-
-         navigate("/operation")
+        if(request_id !== null) {
+            fetchRequest(request_id);
+            
+            console.log("fetched request from request page")
         }
-    }, [])
-
+    }, [request_id]);
+  
     if (!is_authenticated){
+        console.log('Not Authed')
         return
     }
 
     if (request == undefined)
     {
+        console.log('Request is undefined')
         return (
-            <div className="order-page-wrapper">
+            <div >
                 <h1>Пусто</h1>
             </div>
         )
     }
-
-    const cards =request.items.map(item => (
-        <OperationCard operation={item} key={item.pk}/>
-    ))
+    console.log("our Request ", request.data.items)
+    const cards = request.data.items.map((item:any) => (
+        <RequestOperationCard data={item} request = {request.data.request} key={item.id} />
+      ));
+    console.log(cards)
 
     const handleAdd = async () => {
         await formRequest()
-        //navigate("/request")
+        navigate("/request")
     }
 
     const handleDelete = async () => {
         await deleteRequest()
-       // navigate("/operation")
+        navigate("/operation")
     }
 
     return (
         <div className="breach-page-wrapper">
+            
         <div className="fines-wrapper">
             <div className="top">
-                <h3>Нарушение</h3>
+                <h3>Конструктор заявки-черновика</h3>
             </div>
-
-            <div className="bottom">
-                {cards}
-            </div>
-        </div>
-
-        <div className="buttons-wrapper">
+           
+            <ul>
+            <div className="buttons-wrapper">
             <button className="order-button" onClick={handleAdd}>Отправить</button>
             <button className="delete-button" onClick={handleDelete}>Удалить</button>
+            </div>
+                
+                    
+                    {cards}
+              
+            </ul>
         </div>
+
+      
         </div>
     )
 }

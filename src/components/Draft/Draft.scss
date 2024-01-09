@@ -1,0 +1,59 @@
+.lesson-constructor-container {
+
+     width: fit-content;
+     display: inline;
+     border: 1px solid white;
+  
+   
+     margin-left: 20px;
+     position: fixed;
+     right: 100px;
+     padding: 5px;
+     justify-content: center;
+     align-items: center;
+     transition: 0.2s ease;
+     cursor: pointer;
+     text-decoration: none;
+   
+     &:hover {
+      text-shadow:
+      0 0 2vw rgba(255,255,255,.5),
+      0 0 5vw #09f;
+     }
+   
+     span {
+   
+       font-size: 20px;
+       color: #fff;
+       text-decoration: none;
+     }
+   
+     .badge {
+   
+       font-size: 14px;
+       width: 24px;
+       height: 24px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+     
+     }
+   }
+ 
+ .lesson-constructor-container.disabled-link {
+
+     pointer-events: none;
+     cursor: default; /* Changes the cursor to indicate the item is not clickable */
+     
+     color: #ce2b2b; /* A lighter shade of grey for the text */
+ }
+ 
+ .lesson-constructor-container.disabled-link:hover {
+     transform: none; /* Disables the hover effect */
+ }
+ 
+ .lesson-constructor-container.disabled-link .badge {
+     color: #f38080;
+ }
+ 
+ 

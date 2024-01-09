@@ -4,9 +4,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 import "./NavBar.scss"
+import Draft from '../Draft/Draft';
 import Container from 'react-bootstrap/Container';
 
-const MyNavbar = () => {
+type props = {
+    request_id: number|null
+   };
+const MyNavbar = ({request_id}:props) => {
 
     const {is_authenticated, is_moderator, user_name, auth} = useAuth()
     console.log("NAVIGATION", is_authenticated, user_name)
@@ -55,9 +59,9 @@ const MyNavbar = () => {
             <Link className = 'nav-link' style = {{ marginLeft:"5%"}}   to={`/profile`}>
                 {user_name}
             </Link>
-        }      
-
-
+        }    
+         {is_authenticated && 
+         <Draft request_id={request_id}></Draft>}  
         </Nav>
         </Navbar.Collapse>
     </Navbar>

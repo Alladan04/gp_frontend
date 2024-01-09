@@ -56,7 +56,8 @@ root.render(
                         <Route path="operation/:id" element={<OperationPage/>}/>
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="profile/" element={<ProfilePage/>}/> 
-                        <Route path="request/" element={<RequestPage/>}/> 
+                        <Route path="request/:id" element={<RequestPage/>}/> 
+                        
                         <Route path="*" element={<p>Path not resolved</p>} />
                     </Routes>
 

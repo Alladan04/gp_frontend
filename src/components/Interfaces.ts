@@ -16,3 +16,12 @@ interface Request{
      user: string,
      admin: 9
 }
+
+interface DraftItem{
+   
+          id: number,
+          operand1: number,
+          operand2: number,
+          operation:Operation
+     
+}
