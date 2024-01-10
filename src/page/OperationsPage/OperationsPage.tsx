@@ -21,7 +21,7 @@ const Operations = () => {
     });
 
     const [titleData, setTitlePage] = useState<string>("");
- 
+    const [showData, setShowData] = useState<string>("");
 
     const { session_id } = useSid()
 
@@ -63,23 +63,27 @@ const Operations = () => {
 
     useEffect(() => {
         searchOperations()
-    }, [titleData])
- 
+    }, [showData])
+
     return (
      <div>
            <MyNavbar request_id = {operations.request_id}></MyNavbar>
            
-                <div className='search_in_menu'>
-                <SearchOperations title={titleData} setTitle={(newTitle) => {
-                    setTitlePage(newTitle);
-                    searchOperations(); }}
-                />
-                </div>
+               
 
-                
          
             <ul className="my-card-grid">
+            <div className='search_in_menu'>
+                <SearchOperations title={titleData} setTitle={(newTitle) => {
+                    setTitlePage(newTitle);
+                    }}
+                    setSubmitData={setShowData  }
+                   
+                />
+                </div>
             <div className = 'container flex-container'>
+
+          
                 {operations.operations.map((operation) => {
                     return <OperationCard operation={operation} key={operation}/>
                 })}

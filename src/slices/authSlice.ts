@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {
+const initialState =
+ {
   user_id: -1,
   user_name: "",
   is_authenticated: false,

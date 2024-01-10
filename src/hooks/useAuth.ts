@@ -10,7 +10,7 @@ import { useSid } from './useSid';
 
 export function useAuth() {
   const {is_authenticated, is_moderator, user_id, user_name} = useSelector((state: any) => state.user)
-
+  console.log("in useAuth, current state = ",is_authenticated, user_name )
   const { session_id, setSid, resetSid } = useSid()
 
   const dispatch = useDispatch()
@@ -97,7 +97,7 @@ export function useAuth() {
 
 
   const auth = async () => {
-    console.log("in USE AUTH")
+    console.log("in USE AUTH checking authentication")
     if (is_authenticated)
     {
       return true

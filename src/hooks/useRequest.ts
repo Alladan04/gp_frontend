@@ -10,7 +10,7 @@ export function useDraftRequest() {
     const { session_id } = useSid()
 
     const request = useSelector((state : any) => state.draft.request);
-
+    //request contains request and items
     const dispatch = useDispatch()
 
     const setRequest = (value : any) => {
@@ -69,12 +69,14 @@ export function useDraftRequest() {
     }
 */
     const formRequest = async () => {
+        console.log("In form request", request)
 
-        const response = await axios(`http://localhost:8000/request/form/${request.id}/`, {
+        const response = await axios(`http://localhost:8000/request/form/${request.data.request.id}/`, {
             method: "PUT",
             headers: {
                 'authorization': session_id
-            }
+            },
+            
         })
 
         if (response.status == 200)
@@ -85,7 +87,7 @@ export function useDraftRequest() {
 
     const deleteRequest = async () => {
 
-        const response = await axios(`http://localhost:8000/request/${request.id}/`, {
+        const response = await axios(`http://localhost:8000/request/${request.data.request.id}/`, {
             method: "DELETE",
             headers: {
                 'authorization': session_id
@@ -109,8 +111,30 @@ export function useDraftRequest() {
         })
 
         if (response.status == 200) {
-            setRequest(response.data)
+           // setRequest(response.data)
+           fetchRequest(request?.data?.request?.id)
+            console.log(response.data)
+            console.log("The request", request)
         }
+    }
+    const updateRequestItem =  async (request_operation_id:number, formdata:any)=>{
+        const response = await axios(`http://localhost:8000/request/operation/${request_operation_id}/`, {
+            method:"PUT",
+            headers:{
+                'authorization':session_id
+            },
+            data: formdata as FormData
+        })
+        if (response.status!=200){
+            console.log("Problem occured while updating")
+            console.log(formdata)
+        }
+        else {
+            console.log("Updated item")
+            console.log(formdata)
+            //fetchRequest(request.data.request.id)
+        }
+       
     }
 
     return {
@@ -121,6 +145,7 @@ export function useDraftRequest() {
         deleteRequest,
         deleteOperationFromRequest,
         fetchRequest,
-        resetRequest
+        resetRequest,
+        updateRequestItem
     };
 }

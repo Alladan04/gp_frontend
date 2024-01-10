@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./OperationPage.css"
 import {useOperation} from "../../hooks/useOperation";
+import { useDraftRequest } from '../../hooks/useRequest';
 import { Link } from 'react-router-dom';
 
 const OperationPage = () => {
@@ -10,7 +11,7 @@ const OperationPage = () => {
     const Id = id ? parseInt(id, 10) : null; // Преобразование в число или null
 
     const {operation, fetchOperation} = useOperation()
-
+    const {addOperationToRequest}= useDraftRequest()
     useEffect(() => {
         if (Id !== null) {
             fetchOperation(Id)
@@ -21,6 +22,9 @@ const OperationPage = () => {
         return <div>Loading...</div>;
     }
 
+    const handleClick = ()=>{
+      addOperationToRequest(operation.data.pk);
+    }
     return (
       <>
   
@@ -64,7 +68,7 @@ const OperationPage = () => {
       <h3>Allochka Danielyan</h3>
     </div>
     <div className="action">
-      <button type="button">Добавить в заявку</button>
+      <button type="button" onClick={handleClick}>Добавить в заявку</button>
     </div>
   </div>
 </div>

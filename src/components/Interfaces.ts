@@ -8,7 +8,7 @@ interface Operation{
 }
 
 interface Request{
-     id: BigInteger,
+     id: number,
      status: string,
      creation_date: string,
      form_date: string,
@@ -24,4 +24,8 @@ interface DraftItem{
           operand2: number,
           operation:Operation
      
+}
+interface DraftRequest{
+     request:Request,
+     items:[DraftItem]
 }

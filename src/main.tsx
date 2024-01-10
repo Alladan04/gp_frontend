@@ -27,6 +27,7 @@ import "./page/OperationPage/OperationPage.css"
 import {QueryClient, QueryClientProvider} from "react-query";
 import ProfilePage from "./page/ProfilePage/ProfilePage.tsx";
 import RequestPage from "./page/RequestPage/RequestPage.tsx";
+import RequestsPage from "./page/RequestsPage/RequestsPage.tsx";
 //import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 
 const root = ReactDOM.createRoot(
@@ -57,6 +58,7 @@ root.render(
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="profile/" element={<ProfilePage/>}/> 
                         <Route path="request/:id" element={<RequestPage/>}/> 
+                        <Route path = "request/" element = {<RequestsPage/>}/>
                         
                         <Route path="*" element={<p>Path not resolved</p>} />
                     </Routes>

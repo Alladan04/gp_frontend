@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 //import "./FineCard.scss"
 //import CustomButton from "../CustomButton/CustomButton";
@@ -6,16 +6,28 @@ import { Link } from 'react-router-dom';
 import {useDraftRequest} from "../../hooks/useRequest";
 //import {Fine} from "../Interfaces";
 import {useAuth} from "../../hooks/useAuth";
-import { Button, Card} from 'react-bootstrap';
+import { Button,} from 'react-bootstrap';
 //import "./RequestOperationCard.css"
 import OperationButton from '../Buttons/OperationButton';
 //import Card from 'react-bootstrap/Card';
+//import "./RequestOperation.css"
 
 const RequestOperationCard = ({data, request}:{data: DraftItem, request: Request}) => {
 
   const {is_authenticated, is_moderator} = useAuth()
-
-  const {addOperationToRequest, deleteOperationFromRequest} = useDraftRequest()
+ 
+  const {addOperationToRequest, deleteOperationFromRequest, fetchRequest,updateRequestItem} = useDraftRequest()
+  const [op1, setOp1] = useState(data.operand1);
+  const [op2, setOp2] = useState(data.operand2);
+  const handleSubmit = (event:any)=> {
+    event.preventDefault();
+    console.log(event.target)
+    //const formData = new FormData(event.target as HTMLFormElement)
+    const formData = {data:{operand1:op1, operand2:op2}}
+    updateRequestItem(data.id, formData)
+    console.log("operand1", op1)
+    console.log("operand2", op2)
+  }
 
   const handleAdd = async () => {
     await addOperationToRequest(data.id)
@@ -23,26 +35,53 @@ const RequestOperationCard = ({data, request}:{data: DraftItem, request: Request
 
   const handleDelete = async () => {
     await deleteOperationFromRequest(data.id)
+
   }
-  
+  useEffect(() => {
+    
+        fetchRequest(request.id);
+        console.log("fetched requesr from card")
+      
+}, []);
+
+
 
   return (
     <>
   
  
-      <Card>
-      <img src={"data:image/png;base64,"+data.operation.image} />
-      <h3>{data.operation.name}</h3>
-    
-      <div className='my_card'>
-     
-              {is_authenticated && request.status!="введён"&& <OperationButton text = "Добавить"onClick={handleAdd} /> }
-              {is_authenticated && request.status=="введён"&& <OperationButton text= "Удалить" onClick={handleDelete} /> }
-              {is_authenticated&&request.status=="введён"&&<div className="inputBox"> <input type="text" name="operand1"/></div>}
-              {is_authenticated&&request.status=="введён"&&<div className="inputBox"> <input type="text" name="operand2"/></div>}
-      </div>
-      </Card>
+      <div className='card'>
+      <div className="card__body">
+          <div className="half">
+          <div className="featured_text">
+               <h1>{data.operation.name}</h1>
+               </div>
 
+          <div className="image">
+          <img src={"data:image/png;base64,"+data.operation.image} style={{maxWidth:"50%"}} />  
+          </div>
+       </div>
+       <div className="half">
+          <div className="description">
+                <form className='container' style = {{display:"flex-box",marginTop :'10px', gap :'20px'}}>
+               {is_authenticated&&request.status=="введён"&&<div className="inputBox"> <input type="number" value={op1} onChange = {(e)=>{setOp1(Number(e.target.value))}}name="operand1" min = "0" style = {{height:'30px'}}/></div>}
+               {is_authenticated&&request.status=="введён"&&<div className="inputBox" > <input type="number" value = {op2} onChange = {(e)=>{setOp2(Number(e.target.value))}} name="operand2"  min = "0" style = {{height:'30px', marginTop:'10px', marginBottom:"10px"}}/></div>}
+               {is_authenticated && request.status=="введён"&& <OperationButton text= "Ок" onClick={handleSubmit} /> }
+               </form>
+               <div className='container' style = {{display:"flex",marginTop :'10px'}}>
+               {is_authenticated && request.status!="введён"&& <OperationButton text = "Добавить"onClick={handleAdd} /> }
+    
+               {is_authenticated && request.status=="введён"&& <OperationButton text= "Удалить" onClick={handleDelete} /> }
+               </div>
+          </div>
+      </div>
+       </div>
+     
+        
+      
+   
+      </div>
+  
 
 </>
   )

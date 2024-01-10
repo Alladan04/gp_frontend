@@ -16,7 +16,11 @@ const RequestPage = () => {
 
     const navigate = useNavigate()
 
-    const {is_authenticated} = useAuth()
+    const {is_authenticated, auth} = useAuth()
+    useEffect(() => {
+        auth()
+        
+    }, []);
     const {request, formRequest, deleteRequest, fetchRequest} = useDraftRequest()
     console.log(request)
     // useEffect(() => {
@@ -47,7 +51,7 @@ const RequestPage = () => {
             </div>
         )
     }
-    console.log("our Request ", request.data.items)
+    console.log("our Request ", request)
     const cards = request.data.items.map((item:any) => (
         <RequestOperationCard data={item} request = {request.data.request} key={item.id} />
       ));
@@ -68,12 +72,12 @@ const RequestPage = () => {
             
         <div className="fines-wrapper">
             <div className="top">
-                <h3>Конструктор заявки-черновика</h3>
+                <h1>Конструктор заявки-черновика</h1>
             </div>
            
             <ul>
             <div className="buttons-wrapper">
-            <button className="order-button" onClick={handleAdd}>Отправить</button>
+            <button className="order-button" onClick={handleAdd} style = {{marginRight:"20px"}}>Отправить</button>
             <button className="delete-button" onClick={handleDelete}>Удалить</button>
             </div>
                 
