@@ -11,6 +11,7 @@ import {useSid} from "../../hooks/useSid";
 import SearchOperations from "../../components/SearchBar/Search"
 import OperationCard from '../../components/OperationCard/OperationCard';
 import MyNavbar from '../../components/NavBar/NavBar';
+import { useAuth } from '../../hooks/useAuth';
 //import { mockOperations } from '../../assets/Mock.ts';
 
 const Operations = () => {
@@ -22,7 +23,7 @@ const Operations = () => {
 
     const [titleData, setTitlePage] = useState<string>("");
     const [showData, setShowData] = useState<string>("");
-
+    const {is_authenticated, auth} = useAuth();
     const { session_id } = useSid()
 
 
@@ -58,8 +59,9 @@ const Operations = () => {
     };
     */
 
-
-
+    useEffect (()=>{
+        auth();
+    }, [])
 
     useEffect(() => {
         searchOperations()
@@ -67,8 +69,8 @@ const Operations = () => {
 
     return (
      <div>
-           <MyNavbar request_id = {operations.request_id}></MyNavbar>
            
+           {is_authenticated&&<Draft request_id={operations.request_id}></Draft>}
                
 
          
@@ -81,7 +83,7 @@ const Operations = () => {
                    
                 />
                 </div>
-            <div className = 'container flex-container'>
+            <div className = 'container flex-container' style = {{marginTop:'10px'}}>
 
           
                 {operations.operations.map((operation) => {

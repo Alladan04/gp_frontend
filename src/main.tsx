@@ -28,6 +28,12 @@ import {QueryClient, QueryClientProvider} from "react-query";
 import ProfilePage from "./page/ProfilePage/ProfilePage.tsx";
 import RequestPage from "./page/RequestPage/RequestPage.tsx";
 import RequestsPage from "./page/RequestsPage/RequestsPage.tsx";
+import OperationsAdminPage from "./page/OperationsAdminPage/OperationsAdminPage.tsx";
+import OperationEdit from "./page/OperationEditPage/OperationEditPage.tsx";
+import OperationAddPage from "./page/OperationAddPage/OperationAddPage.tsx";
+import MyNavbar from "./components/NavBar/NavBar.tsx";
+import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs.tsx";
+import SignUpPage from "./page/SignUpPage/SignUpPage.tsx";
 //import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 
 const root = ReactDOM.createRoot(
@@ -46,20 +52,21 @@ root.render(
         <Provider store={store}>
 
             <BrowserRouter basename="/gp_frontend">
-
-                
-
-               
+                <MyNavbar ></MyNavbar>
+                <BreadCrumbs></BreadCrumbs>
 
                     <Routes>
-                        <Route path="/" element={<Navigate to="/" replace />} />
+                        <Route path="/" element={<Navigate to="/operation" replace />} />
                         <Route path="/operation" element={<OperationsPage/>}/>
                         <Route path="operation/:id" element={<OperationPage/>}/>
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="profile/" element={<ProfilePage/>}/> 
                         <Route path="request/:id" element={<RequestPage/>}/> 
                         <Route path = "request/" element = {<RequestsPage/>}/>
-                        
+                        <Route path = "operation/edit" element = {<OperationsAdminPage/>}/>
+                        <Route path = "operation/edit/:id" element = {<OperationEdit/>}/>
+                        <Route path = "operation/add" element = {<OperationAddPage/>}/>
+                        <Route path = "signup" element = {<SignUpPage/>}/>
                         <Route path="*" element={<p>Path not resolved</p>} />
                     </Routes>
 

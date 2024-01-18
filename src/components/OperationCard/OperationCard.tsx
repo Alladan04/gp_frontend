@@ -43,8 +43,8 @@ const OperationCard = ({operation}:{operation: Operation}) => {
       <Link to={`/operation/${operation.pk}`}>
                 <OperationButton text = "Подробнее" >ADD</OperationButton>
               </Link>
-              {is_authenticated && !location.pathname.includes("draft") && <Button onClick={handleAdd} /> }
-              {is_authenticated && location.pathname.includes("draft") && <Button  onClick={handleDelete} /> }
+              {is_authenticated && !location.pathname.includes("draft") && <OperationButton onClick={handleAdd} text={"+"}  /> }
+           
       </div>
     </div>
   </div>

@@ -59,6 +59,26 @@ export function useAuth() {
 
   }
 
+  const signup = async (formData: any)=>{
+    try{
+      const response = await axios(`http://127.0.0.1:8000/profile/register`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        data: formData as FormData
+      })
+      if (response.status==200){
+        return true
+      }
+      }
+      catch (error){
+        console.log(error);
+        return false;
+      }
+    
+  }
+
   const login = async (formData: any) => {
 
       const response = await axios(`http://127.0.0.1:8000/profile/login`, {
@@ -148,6 +168,7 @@ export function useAuth() {
     logOut,
     login,
     auth,
-    initializeUserFromStorage
+    initializeUserFromStorage,
+    signup
   };
 }

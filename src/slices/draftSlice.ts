@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
 	request: undefined,
-	//items: undefined
+	items: undefined
 };
 //request contains request with request information( data, status etc)
 //request also contains items which is a list of objects, which contain operation and additional info (operands, result)

@@ -51,7 +51,9 @@ width:50%;
     > .half{
       box-sizing: border-box;
       padding: 0 15px;
+      align-items: flex-start;
       flex:  0 50%;
+      width: 100px;
     }
     
     .featured_text{

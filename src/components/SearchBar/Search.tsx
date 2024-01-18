@@ -23,7 +23,7 @@ const SearchOperations = ({ title, setTitle, setSubmitData}: {title:string, setT
 
     return (
 <>
-<div className="box" style = {{marginTop:'100px'}}>
+<div className="box" style = {{marginTop:'20px'}}>
   <form id = 'search'name="search" method = "get" onSubmit={(e)=>handleFilterSubmit(e)} >
       <input id= "search_text" type="text" className="input" name="text" value = {title} 
       onChange={(e)=>handleChange(e.target.value)}  />

@@ -9,9 +9,14 @@ import "./RequestsPage.scss"
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import OperationButton from "../../components/Buttons/OperationButton";
+import { useNavigate } from "react-router-dom";
 
 
-const fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, setError: any, setLoadedOnce: any, setIsLoading: any) => {
+const 
+
+
+fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, setError: any, setLoadedOnce: any, setIsLoading: any) => {
     // Function to fetch data moved here and receives necessary state setters via parameters
     setIsLoading(true);
     setLoadedOnce(true);
@@ -20,7 +25,7 @@ const fetchRequestsData = async (filters: any, session_id: any, setRequestsData:
       const { data } = await axios("http://localhost:8000/request/", {
         method: "GET",
         headers: { authorization: session_id },
-        params: { downdate: startDate, update: endDate, status_list: Status, username: userName, },
+        params: { downdate: startDate, update: endDate, status_list: Status, username: userName },
       });
       setRequestsData(data.data);
       console.log("requests data fetchde", data.data)
@@ -76,11 +81,17 @@ const fetchRequestsData = async (filters: any, session_id: any, setRequestsData:
         Header: "Дата формирования",
         accessor: "form_date",
         Cell: ({ value }) => { return moment(value).locale(ru()).format("D MMMM YYYY, HH:mm") }
+    },
+    {
+        Header: "Дата завершения",
+        accessor: "finish_date",
+        Cell: ({ value }) => { return value? moment(value).locale(ru()).format("D MMMM YYYY, HH:mm"):"не определено" }
     }
 ]
 
 
 export const RequestsTable = () => {
+    const navigate = useNavigate()
    
 
     const { session_id } = useSid();
@@ -124,10 +135,16 @@ export const RequestsTable = () => {
                         <div>
                             <button className="accept-button" onClick={() => handleAccept(row)}>Принять</button>
                             <button className="reject-button" onClick={() => handleReject(row)}>Отклонить</button>
+                            <OperationButton text = "Подробнее" onClick={()=>handleRedirect(row)}></OperationButton>
+
                         </div>
                     );
                 }
-                return null;
+                return (                            
+                <div>
+                <OperationButton text = {"Подробнее"}   onClick={()=>handleRedirect(row)}></OperationButton>
+                </div>
+                );
             },
           });
 
@@ -196,7 +213,10 @@ export const RequestsTable = () => {
             // Обработайте ошибку, возможно показать сообщение пользователю
         }
     }
-
+    const handleRedirect = async (row: any)=>{
+        //console.log(row)
+        navigate(`/request/${row.original.id}`)
+    }
     const handleReject = async (row: any) => {
         try {
             const response = await axios(`http://localhost:8000/request/${row.original.id}/`, {
@@ -282,7 +302,7 @@ export const RequestsTable = () => {
         let formattedValue = value;
         if (value) {
             console.log(value)
-            formattedValue = moment(value).format("YYYY-MM-DDTHH:mm"); // Обратите внимание на изменение формата
+            formattedValue = moment(value).format("YYYY-MM-DD"); // Обратите внимание на изменение формата
         }
     
         setFilters({
@@ -305,11 +325,28 @@ export const RequestsTable = () => {
 
     const handleInputChange = (event: any) => {
     const { name, value } = event.target;
+    
+
+    /*if (filters.userName.length> value.length){
+        fetchRequestsData(filters, session_id, setRequestsData, setError, setLoadedOnce, setIsLoading)
+    }
+    setRequestsData(filter(requestsData, value));*/
     setFilters({
         ...filters,
         [name]: value
     });
+
 };
+    const filter = (requests: any, searchText: any) => {
+        return requests.filter((request: any) => {
+            const name = request.user
+        //operation.title.toLowerCase();
+            const search= searchText.toLowerCase();
+            console.log("value_to_search", search, "Name", request.user, " = ", name.includes(search))
+            return name.includes(search);
+
+        });
+    };
 
 
     return (
@@ -318,14 +355,14 @@ export const RequestsTable = () => {
             <form> 
             <input
                 className="date-input"
-                type="datetime-local"
+                type="date"
                 name="startDate"
                 value={filters.startDate}
                 onChange={handleDateChange}
             />
             <input
                 className="date-input"
-                type="datetime-local"
+                type="date"
                 name="endDate"
                 value={filters.endDate}
                 onChange={handleDateChange}
@@ -335,10 +372,17 @@ export const RequestsTable = () => {
                 <input
                     className="search-input"
                     type="text"
-                    placeholder="Поиск по имени пользователя"
+                    placeholder="Поиск по пользователю"
                     name="userName"
                     value={filters.userName}
                     onChange={handleInputChange} // Обновите значение фильтра при изменении поля ввода
+                    style = {{
+                                marginLeft:'10px',
+                                border:'1px solid #ced4da',
+                                borderRadius: '4px',
+                                fontSize: '16px',
+                                color: '#495057', height:'30px'
+                            }}
                 />
             }
 

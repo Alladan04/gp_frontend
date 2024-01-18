@@ -11,5 +11,10 @@ const OperationButton = ({text, onClick}) => {
   )
 }
 
+export const SubmitButton = ({text})=>{
+  return (
+    <Button  className = "op_button" type ="submit" style = {{backgroundColor:"#fc1c7f"}}>{text}</Button>
+  )
+}
 
 export default OperationButton

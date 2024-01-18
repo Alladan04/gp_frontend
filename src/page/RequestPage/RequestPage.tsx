@@ -66,20 +66,29 @@ const RequestPage = () => {
         await deleteRequest()
         navigate("/operation")
     }
-
     return (
         <div className="breach-page-wrapper">
             
         <div className="fines-wrapper">
+            {request.data.request.status == "введён"&&
             <div className="top">
                 <h1>Конструктор заявки-черновика</h1>
             </div>
-           
+            }
+             {request.data.request.status != "введён"&&
+            <div className="top">
+                <h1>Заявка № {request_id}, статус: {request.data.request.status}</h1>
+            </div>
+            }
             <ul>
+            {
+                request.data.request.status == 'введён'&&
             <div className="buttons-wrapper">
+            
             <button className="order-button" onClick={handleAdd} style = {{marginRight:"20px"}}>Отправить</button>
             <button className="delete-button" onClick={handleDelete}>Удалить</button>
             </div>
+}
                 
                     
                     {cards}

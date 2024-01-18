@@ -3,7 +3,7 @@
      flex-direction: column;
      justify-content: space-between;
      width: 100%;
-     background: #f71a64;
+     background: #ffffff;
      border-radius: 10px;
      overflow: hidden;
  }
@@ -14,7 +14,7 @@
  
      thead {
          tr {
-             background: #8b2042;
+             background: #ff0057;
  
              th {
                  padding: 20px;
@@ -30,7 +30,7 @@
              transition: 0.2s ease;
  
              &:hover {
-                 background-color: #ce0447;
+                 background-color: #ffecf2;
              }
  
              td {
@@ -77,7 +77,7 @@
  }
  
  
- form input[type='datetime-local'],
+ form input[type='date'],
  form select {
      display: initial;
      align-items: center;
@@ -124,29 +124,32 @@
  .reject-button {
      padding: 5px 10px;
      margin: 0 5px;
-     border: none;
+     margin-bottom: 3px;
+     border: 1px solid #ff0057 ;
      color: white;
      font-weight: bold;
-     border-radius: 4px;
+     border-radius: 200px;
      cursor: pointer;
      transition: opacity 0.2s ease-in-out;
      width: -webkit-fill-available;
  }
  
  .accept-button {
-     background-color: #28a745; // Green color for accept button
+     background-color: #ff0057; // Green color for accept button
  }
  
  .accept-button:hover {
      opacity: 0.8;
+     background-color: greenyellow;
  }
  
  .reject-button {
-     background-color: #291f23; // Red color for reject button
+     background-color:#ff0057; // Red color for reject button
  }
  
  .reject-button:hover {
      opacity: 0.8;
+     background-color: gray;
  }
  
  // Styles for the status selector and page size chooser

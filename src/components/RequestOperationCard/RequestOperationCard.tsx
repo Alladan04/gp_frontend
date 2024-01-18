@@ -37,12 +37,12 @@ const RequestOperationCard = ({data, request}:{data: DraftItem, request: Request
     await deleteOperationFromRequest(data.id)
 
   }
-  useEffect(() => {
+  /*useEffect(() => {
     
         fetchRequest(request.id);
         console.log("fetched requesr from card")
       
-}, []);
+}, []);*/
 
 
 
@@ -61,14 +61,20 @@ const RequestOperationCard = ({data, request}:{data: DraftItem, request: Request
           <img src={"data:image/png;base64,"+data.operation.image} style={{maxWidth:"50%"}} />  
           </div>
        </div>
-       <div className="half">
+       <div className="half" style = {{}}>
           <div className="description">
-                <form className='container' style = {{display:"flex-box",marginTop :'10px', gap :'20px'}}>
+                <form className='container' style = {{display:"flex-box",marginTop :'10px', gap :'20px',position:'relative', right: '20px'}}>
                {is_authenticated&&request.status=="введён"&&<div className="inputBox"> <input type="number" value={op1} onChange = {(e)=>{setOp1(Number(e.target.value))}}name="operand1" min = "0" style = {{height:'30px'}}/></div>}
                {is_authenticated&&request.status=="введён"&&<div className="inputBox" > <input type="number" value = {op2} onChange = {(e)=>{setOp2(Number(e.target.value))}} name="operand2"  min = "0" style = {{height:'30px', marginTop:'10px', marginBottom:"10px"}}/></div>}
                {is_authenticated && request.status=="введён"&& <OperationButton text= "Ок" onClick={handleSubmit} /> }
                </form>
-               <div className='container' style = {{display:"flex",marginTop :'10px'}}>
+               <div className='container' style = {{display:"block",marginTop :'10px',width:'50px',position:'relative', right: '20px'}}>
+                {is_authenticated&&request.status!="введён"&&
+                <div>
+                <h3>операнды: {data.operand1}, {data.operand2}</h3>
+                <h3>результат:{data.result?data.result:"нет"}</h3>
+                </div>
+                }
                {is_authenticated && request.status!="введён"&& <OperationButton text = "Добавить"onClick={handleAdd} /> }
     
                {is_authenticated && request.status=="введён"&& <OperationButton text= "Удалить" onClick={handleDelete} /> }
