@@ -18,7 +18,7 @@ const SearchOperations = ({ title, setTitle, setSubmitData}: {title:string, setT
     };
     
     const handleChange = (value: string)=>{
-        setTitle(value)
+        setTitle(value);
     }
 
     return (

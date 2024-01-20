@@ -12,6 +12,8 @@ import SearchOperations from "../../components/SearchBar/Search"
 import OperationCard from '../../components/OperationCard/OperationCard';
 import MyNavbar from '../../components/NavBar/NavBar';
 import { useAuth } from '../../hooks/useAuth';
+import { useDraftRequest } from '../../hooks/useRequest';
+import { useFilters } from '../../hooks/useFilters';
 //import { mockOperations } from '../../assets/Mock.ts';
 
 const Operations = () => {
@@ -20,22 +22,22 @@ const Operations = () => {
         request_id: null,
         operations: [],
     });
-
+  
     const [titleData, setTitlePage] = useState<string>("");
     const [showData, setShowData] = useState<string>("");
     const {is_authenticated, auth} = useAuth();
     const { session_id } = useSid()
-
-
+    const {request} = useDraftRequest();
+    const { filters, setTitle } = useFilters();
     const searchOperations = async () => {
         try {
-            const { data } = await axios(`http://127.0.0.1:8000/operation`, {
+            const { data } = await axios(`http://127.0.0.1:8000/operation/`, {
                 method: "GET",
                 headers: {
                     'authorization': session_id
                 },
                 params: {
-                    text: titleData
+                    text: filters.title
                 }
             });
             console.log(data)
@@ -59,14 +61,26 @@ const Operations = () => {
     };
     */
 
-    useEffect (()=>{
-        auth();
+   useEffect (()=>{
+        setShowData(filters.title);
+        //searchOperations();
+        //operations.request_id = request?.data.request.id
+        //alert(operations.request_id)
+       // console.log("On mount operations page", request?.data.request.id)
     }, [])
 
     useEffect(() => {
-        searchOperations()
+        //console.log("Filters Title",filters.title);
+       searchOperations();
+       
     }, [showData])
-
+    
+    useEffect(() => {
+        operations.request_id = request?.data.request.id
+        console.log("Request after adding operation", request, operations )
+     }, [request?.data.request.id])
+     
+ 
     return (
      <div>
            
@@ -76,10 +90,14 @@ const Operations = () => {
          
             <ul className="my-card-grid">
             <div className='search_in_menu'>
-                <SearchOperations title={titleData} setTitle={(newTitle) => {
-                    setTitlePage(newTitle);
+                <SearchOperations title={filters.title} setTitle={(newTitle) => {
+                    setTitle(newTitle);
+                    //setTitlePage(newTitle);
                     }}
-                    setSubmitData={setShowData  }
+                    setSubmitData={(newTitle)=>{
+                        setTitle(newTitle);
+                        setShowData(newTitle);}}
+                        //setTitle(newTitle);}}
                    
                 />
                 </div>

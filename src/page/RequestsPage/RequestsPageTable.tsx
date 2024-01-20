@@ -1,4 +1,4 @@
-import {TableInstance, useTable, usePagination} from "react-table"
+import {TableInstance, useTable, usePagination, useFilters} from "react-table"
 import axios from "axios";
 import { STATUSES } from "../../utils/consts";
 import { ru } from "../../utils/momentLocalization";
@@ -11,12 +11,8 @@ import React, { useState, useMemo, useEffect, useRef, useCallback } from "react"
 import { useAuth } from "../../hooks/useAuth";
 import OperationButton from "../../components/Buttons/OperationButton";
 import { useNavigate } from "react-router-dom";
-
-
-const 
-
-
-fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, setError: any, setLoadedOnce: any, setIsLoading: any) => {
+import {useFilters as FilterHook} from "../../hooks/useFilters"
+const fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, setError: any, setLoadedOnce: any, setIsLoading: any) => {
     // Function to fetch data moved here and receives necessary state setters via parameters
     setIsLoading(true);
     setLoadedOnce(true);
@@ -25,7 +21,7 @@ fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, 
       const { data } = await axios("http://localhost:8000/request/", {
         method: "GET",
         headers: { authorization: session_id },
-        params: { downdate: startDate, update: endDate, status_list: Status, username: userName },
+        params: { downdate: startDate, update: endDate, status_list: Status },
       });
       setRequestsData(data.data);
       console.log("requests data fetchde", data.data)
@@ -93,7 +89,7 @@ fetchRequestsData = async (filters: any, session_id: any, setRequestsData: any, 
 export const RequestsTable = () => {
     const navigate = useNavigate()
    
-
+    
     const { session_id } = useSid();
     const { is_moderator, auth } = useAuth();
     useEffect(() => {
@@ -103,12 +99,13 @@ export const RequestsTable = () => {
     const [requestsData, setRequestsData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [filters, setFilters] = useState({
+   /* const [filters, setFilters] = useState({
       startDate: "",
       endDate: "",
       Status: "",
       userName: "",
-    });
+    });*/
+    const {filters, setFilters} = FilterHook();
     const [loadedOnce, setLoadedOnce] = useState(false);
 
 // ...в функции fetchBreachesData добавить setLoadedOnce(true); после успешного получения данных.
@@ -140,15 +137,31 @@ export const RequestsTable = () => {
                         </div>
                     );
                 }
+                else{
                 return (                            
                 <div>
-                <OperationButton text = {"Подробнее"}   onClick={()=>handleRedirect(row)}></OperationButton>
+                <OperationButton text = "Подробнее" onClick={()=>handleRedirect(row)}></OperationButton>
                 </div>
-                );
+                );}
             },
           });
+         
 
 
+        }
+        else{
+            cols.push({
+                Header: "Действия",
+                accessor: "actions",
+                Cell: ({ row }) => {
+         
+                    return (                            
+                    <div>
+                    <OperationButton text = "Подробнее" onClick={()=>handleRedirect(row)}></OperationButton>
+                    </div>
+                    );
+                },
+              });
         }
         return cols;
       }, [is_moderator]); 
@@ -161,20 +174,21 @@ export const RequestsTable = () => {
         };
     
         let interval: any;
+        
         if (is_moderator) {
             // Call the function for initial data load
             fetchDataInterval();
     
             // Set up the interval to fetch data every 3 seconds, only for moderators
-            //interval = setInterval(fetchDataInterval, 3000);
+            interval = setInterval(fetchDataInterval, 3000);
         }else{
             fetchRequestsData(filters, session_id, setRequestsData, setError, setLoadedOnce, setIsLoading);
         }
     
         // Clean up interval on component unmount, or when `is_moderator` changes
-        /*return () => {
+        return () => {
             if (interval) clearInterval(interval);
-        };*/
+        };
     }, [filters, session_id, is_moderator]); // Dependencies array: component will re-run effect if any of these values change
       
 
@@ -241,11 +255,25 @@ export const RequestsTable = () => {
         }
 
     }
+    const getFilteredData = useCallback(() => {
+        if (filters.userName !== "") {
+            return requestsData.filter((item) => {
+                // Предполагая, что у item есть вложенный объект user и свойство username. 
+                // Если это не так, нужно будет адаптировать эту логику к вашей структуре данных.
+                return item.user.toLowerCase().includes(filters.userName.toLowerCase());
+            });
+        }
+        return requestsData;
+    }, [requestsData, filters.userName]);
+
+    const filteredRequestsData = useMemo(() => {
+        return getFilteredData();
+    }, [getFilteredData]);
 
     const tableInstance = useTable(
         {
             columns: COLUMNS,
-            data: requestsData, // Use the fetched data here
+            data: filteredRequestsData,//requestsData, // Use the fetched data here
             initialState: { 
               pageIndex: parseInt(savedPage), 
               pageSize: parseInt(savedPageSize) 
@@ -337,7 +365,7 @@ export const RequestsTable = () => {
     });
 
 };
-    const filter = (requests: any, searchText: any) => {
+   /* const filter = (requests: any, searchText: any) => {
         return requests.filter((request: any) => {
             const name = request.user
         //operation.title.toLowerCase();
@@ -347,7 +375,7 @@ export const RequestsTable = () => {
 
         });
     };
-
+*/
 
     return (
         <div className="table-wrapper">

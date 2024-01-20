@@ -19,7 +19,7 @@ export function useDraftRequest() {
 
     const fetchRequest = async (request_id: number |null) => {
 
-        const response = await axios(`http://localhost:8000/request/${request_id}`, {
+        const response = await axios(`http://localhost:8000/request/${request_id}/`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -48,6 +48,7 @@ export function useDraftRequest() {
         if (response.status == 200)
         {
             setRequest(response.data)
+            return response.data
         }
     }
 /*
@@ -103,7 +104,7 @@ export function useDraftRequest() {
         dispatch(updateRequest(null))
     }
     const deleteOperationFromRequest= async (id:any) => {
-        const response = await axios(`http://localhost:8000/request/operation/${id}`, {
+        const response = await axios(`http://localhost:8000/request/operation/${id}/`, {
             method: "DELETE",
             headers: {
                 'authorization': session_id
@@ -118,7 +119,7 @@ export function useDraftRequest() {
         }
     }
     const updateRequestItem =  async (request_operation_id:number, formdata:any)=>{
-        const response = await axios(`http://localhost:8000/request/operation/${request_operation_id}/`, {
+        const response = await axios(`http://127.0.0.1:8000/request/operation/${request_operation_id}/`, {
             method:"PUT",
             headers:{
                 'authorization':session_id

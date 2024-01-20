@@ -15,7 +15,7 @@ export function useOperation() {
     }
 
     const fetchOperation = async (id: any) => {
-        const {data} = await axios(`http://127.0.0.1:8000/operation/${id}`, {
+        const {data} = await axios(`http://127.0.0.1:8000/operation/${id}/`, {
             method: "GET"
         });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 //import "./FineCard.scss"
 //import CustomButton from "../CustomButton/CustomButton";
 
@@ -14,15 +14,15 @@ const OperationCard = ({operation}:{operation: Operation}) => {
 
   const {is_authenticated, is_moderator} = useAuth()
 
-  const {addOperationToRequest, deleteOperationFromRequest} = useDraftRequest()
-
+  const {addOperationToRequest} = useDraftRequest()
+  
   const handleAdd = async () => {
     await addOperationToRequest(operation.pk)
+    
   }
-
-  const handleDelete = async () => {
+  /*const handleDelete = async () => {
     await deleteOperationFromRequest(operation.pk)
-  }
+  }*/
   
 
   return (
@@ -41,9 +41,9 @@ const OperationCard = ({operation}:{operation: Operation}) => {
     <div className="content">
       <div>
       <Link to={`/operation/${operation.pk}`}>
-                <OperationButton text = "Подробнее" >ADD</OperationButton>
+                <OperationButton text = {"Подробнее"} onClick={()=>{}}></OperationButton>
               </Link>
-              {is_authenticated && !location.pathname.includes("draft") && <OperationButton onClick={handleAdd} text={"+"}  /> }
+              {is_authenticated && <OperationButton onClick={handleAdd} text={"+"}  /> }
            
       </div>
     </div>

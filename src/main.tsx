@@ -51,7 +51,7 @@ root.render(
 
         <Provider store={store}>
 
-            <BrowserRouter basename="/gp_frontend">
+            <BrowserRouter basename="/front">
                 <MyNavbar ></MyNavbar>
                 <BreadCrumbs></BreadCrumbs>
 
