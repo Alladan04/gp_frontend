@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {updateUser, cleanUser} from "../slices/authSlice";
 import axios from "axios";
 import { useSid } from './useSid';
-
+import {User} from "../../../typescript-axios-client-generated/models/user"
 
 
 
@@ -59,7 +59,7 @@ export function useAuth() {
 
   }
 
-  const signup = async (formData: any)=>{
+  const signup = async (formData: User)=>{
     try{
       const response = await axios(`http://127.0.0.1:8000/profile/register`, {
         method: "POST",
@@ -79,7 +79,7 @@ export function useAuth() {
     
   }
 
-  const login = async (formData: any) => {
+  const login = async (formData: User) => {
 
       const response = await axios(`http://127.0.0.1:8000/profile/login`, {
         method: "POST",

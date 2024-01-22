@@ -4,7 +4,7 @@ import {
 } from "../slices/draftSlice";
 import axios from "axios";
 import {useSid} from "./useSid";
-
+import {Request} from "../../../typescript-axios-client-generated/models/request"
 export function useDraftRequest() {
 
     const { session_id } = useSid()
@@ -118,7 +118,7 @@ export function useDraftRequest() {
             console.log("The request", request)
         }
     }
-    const updateRequestItem =  async (request_operation_id:number, formdata:any)=>{
+    const updateRequestItem =  async (request_operation_id:number, formdata:Request)=>{
         const response = await axios(`http://127.0.0.1:8000/request/operation/${request_operation_id}/`, {
             method:"PUT",
             headers:{

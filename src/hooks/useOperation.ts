@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {updateOperation} from "../slices/operationSlice"
 import axios from "axios";
 import { useSid } from './useSid';
-
 export function useOperation() {
     const operation = useSelector((state:any) => state.operation.operation);
 
