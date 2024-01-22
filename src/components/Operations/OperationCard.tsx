@@ -3,18 +3,6 @@ import { Link } from 'react-router-dom';
 import AddButton from './addButton.tsx';
 import "./styles/OperationsPage.css";
 
-interface Operation {
-  data:{
-  pk: number;
-  img_src: string;
-  image: string;
-  name: string;
-  description: string;
-  status: string;
-},
-image: string|null;
- 
-}
 
 
 const OperationCard: React.FC<{operationData: any}> = ({operationData}) => {

@@ -11,18 +11,7 @@ import MyNavBar from '../MyNavBar/NavBar.tsx'
 import { useLocation } from 'react-router-dom';
 import BreadCrumbs from '../BreadCrumb/BreadCrumb.tsx'
 //import {Crumbs} from '../BreadCrumb/BreadCrumb.tsx'
-interface Operation {
-    data:{
-    pk: number;
-    img_src: string;
-    image: string;
-    name: string;
-    description: string;
-    status: string;
-  },
-  image: string|null;
-   
-  }
+
 function Operations() {
     
     const [Operation_, setOperation] = useState<OpRes>({

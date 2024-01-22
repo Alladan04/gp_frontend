@@ -1,5 +1,5 @@
 import defaultImage from './Default.png';
-import { getMockOperations, getFilteredMocks} from '../../assets/MockOperations.ts';
+import {  getFilteredMocks} from '../../assets/MockOperations.ts';
 
 
 
