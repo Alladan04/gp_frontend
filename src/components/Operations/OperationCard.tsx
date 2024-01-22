@@ -11,12 +11,13 @@ interface Operation {
   name: string;
   description: string;
   status: string;
-}
+},
+image: string|null;
  
 }
 
 
-const OperationCard: React.FC<{operationData: Operation}> = ({operationData}) => {
+const OperationCard: React.FC<{operationData: any}> = ({operationData}) => {
   console.log("operation card", operationData)
   return (<>
     <div className="my-card">
