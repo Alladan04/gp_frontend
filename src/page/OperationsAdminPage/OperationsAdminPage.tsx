@@ -3,14 +3,13 @@ import { useTable } from 'react-table'
 import { Link } from 'react-router-dom';
 
 import SearchOperations from '../../components/SearchBar/Search.js';
-//import "./FinesTable.scss"
+
 import axios from "axios";
 import { useSid } from '../../hooks/useSid.js';
-//import { mockFines } from '../../assets/Mock.js';
+
 import { useAuth } from '../../hooks/useAuth.js';
 import './OperationsAdminPage.scss'
-//import CustomButton from '../../components/CustomButton/CustomButton.js';
-//import {OperationButton} from '../../components/Buttons/OperationButton.js'
+
 import OperationButton from '../../components/Buttons/OperationButton.js';
 import { useOperation } from '../../hooks/useOperation.js';
 //import defaultImage from '../../assets/Default.png';

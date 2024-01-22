@@ -2,7 +2,7 @@
 
      width: fit-content;
      display: inline;
-     border: 1px solid white;
+     border: 1px solid #ff0057;
   
    
      margin-left: 20px;
@@ -16,15 +16,15 @@
      text-decoration: none;
    
      &:hover {
-      text-shadow:
-      0 0 2vw rgba(255,255,255,.5),
-      0 0 5vw #09f;
+      background-color: #fff;
+      color:#ff0057;
+      
      }
    
      span {
    
        font-size: 20px;
-       color: #fff;
+       
        text-decoration: none;
      }
    
@@ -45,7 +45,7 @@
      pointer-events: none;
      cursor: default; /* Changes the cursor to indicate the item is not clickable */
      
-     color: #ce2b2b; /* A lighter shade of grey for the text */
+     color: #f8f3f4; /* A lighter shade of grey for the text */
  }
  
  .lesson-constructor-container.disabled-link:hover {
@@ -53,7 +53,7 @@
  }
  
  .lesson-constructor-container.disabled-link .badge {
-     color: #f38080;
+     color: #fcf9f9;
  }
  
  

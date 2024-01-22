@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {useDraftRequest} from "../../hooks/useRequest";
 import { Button } from "react-bootstrap";
+import {DraftButton} from "../Buttons/OperationButton"
 
 const Draft = ({ request_id }: { request_id: number | null }) => {
     const { request, fetchRequest } = useDraftRequest();

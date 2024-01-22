@@ -51,7 +51,7 @@ root.render(
 
         <Provider store={store}>
 
-            <BrowserRouter basename="/front">
+            <BrowserRouter >
                 <MyNavbar ></MyNavbar>
                 <BreadCrumbs></BreadCrumbs>
 

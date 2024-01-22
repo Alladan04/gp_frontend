@@ -24,7 +24,7 @@ const LoginPage = () => {
             navigate("/operation")
         }
     }
-
+/*
     const handleAuth  = async() => {
         console.log("handleAuth")
         const flag = await auth()
@@ -37,7 +37,7 @@ const LoginPage = () => {
         handleAuth()
     }, []);
     
-
+*/
     return (
           <section> 
 
