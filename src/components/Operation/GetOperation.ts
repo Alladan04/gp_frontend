@@ -1,3 +1,5 @@
+
+import { getMockOperation} from '../../assets/MockOperations.ts';
 export interface Operation {
      //id = models.IntegerField(primary_key=True)
     //name = models.CharField(max_length=30, blank=True, null=True)
@@ -20,19 +22,27 @@ export interface Operation {
  }
  
  export const GetOperation= async (id: number): Promise<OpRes> => {
+    const mockOperation =getMockOperation(id) ;
      try {
          const response = await fetch(`http://127.0.0.1:8000/operation/${id}/`);
          if (!response.ok) {
-             throw new Error('Запрос незадался!');
+            // throw new Error('Запрос незадался!');
+            console.log("mockOperation getoperation", mockOperation)
+             return{
+               data: [mockOperation]
          }
+        }
          const data: Operation = await response.json();
+         console.log("OUR DATA", data);
          return {
+           
             data: [data],
          };
      } catch (error) {
-         console.error('Ошибка запроса:', error);
+         //console.error('Ошибка запроса:', error);
+         console.log("mockOperation getoperation catch", mockOperation)
          return {
-             data: null,
+             data: [mockOperation],
          };
      }
  };

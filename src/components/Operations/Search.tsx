@@ -49,7 +49,7 @@ fetchTitledData();
 
 return (
 <>
-<div className="box">
+<div className="box" style = {{marginTop:"100px", maxWidth:"60%"}}>
   <form id = 'search'name="search" method = "get" onSubmit={handleFilterSubmit}>
       <input id= "search_text" type="text" className="input" name="text" value = {titleData} 
       onChange={handleFilterChange}/>

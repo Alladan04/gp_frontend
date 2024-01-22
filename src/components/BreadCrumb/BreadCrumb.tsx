@@ -19,7 +19,7 @@ const BreadCrumbs: React.FC<{crumbs:Crumbs}> = ({crumbs}) => {
      .map(crumb => {
          // currentLink +=`/${crumb}`;
           return (
-               <div className = "crumb" key = {crumb.name}>
+               <div className = "crumb" key = {crumb.name} style = {{marginTop:"10%"}}>
                     <Link to = {crumb.path}>{crumb.name}</Link>
                </div>
           )

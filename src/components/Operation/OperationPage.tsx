@@ -5,7 +5,7 @@ import { GetOperation} from "./GetOperation";
 import BreadCrumbs from '../BreadCrumb/BreadCrumb';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import MyNavBar from '../NavBar/NavBar';
+import MyNavBar from '../MyNavBar/NavBar';
 interface  Operation {
     data: {
     id: number;
@@ -13,6 +13,7 @@ interface  Operation {
     name: string;
     description: string;
     status: string;
+    image: string|null;
     };
     image: string;
 
@@ -29,7 +30,13 @@ const Operation = () => {
             GetOperation(OperationId)
                 .then((result:any) => {
                     if (result.data !== null) {
-                        setOperation(result.data[0]);
+                      if (result.data[0].data !==null){
+                       let mockdata = {data:{id: result.data[0].pk, img_src:result.data[0].pk, name:result.data[0].name, description: result.data[0].description, status:result.data[0].status, image: result.data[0].image}, image: result.data[0].image}
+                       console.log("MOCKDATA", mockdata)
+                       setOperation( mockdata)
+                      }
+                      else{
+                        setOperation(result.data[0]);}
                     }
                 })
                 .catch((error:any) => {
@@ -48,11 +55,11 @@ const Operation = () => {
     curLink+= '/'+crumb;
     return curLink;
    })
-   let name_list = ["Operation", Operation_.data.name]
+   let name_list = ["Operation", Operation_.data?.name]
     let crumbs={data:[{name:name_list[0], path:path_list[0]},
      {name:name_list[1], path:path_list[1]}]};
    
-   
+   console.log("My operation", Operation_)
     return (<>
   
         <main>  
@@ -74,7 +81,7 @@ const Operation = () => {
           <p className="sub">Бинарная операция:</p>
         </div>
         <div className="image">
-          <img src={"data:image/jpeg;base64,"+Operation_.image} alt=""/>
+          <img src={"data:image/jpeg;base64,"+Operation_.data?.image} alt=""/>
         </div>
       </div>
       <div className="half">

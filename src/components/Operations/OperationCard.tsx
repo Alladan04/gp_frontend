@@ -4,14 +4,17 @@ import AddButton from './addButton.tsx';
 import "./styles/OperationsPage.css";
 
 interface Operation {
+  data:{
   pk: number;
   img_src: string;
   image: string;
   name: string;
   description: string;
   status: string;
+}
  
 }
+
 
 const OperationCard: React.FC<{operationData: Operation}> = ({operationData}) => {
   console.log("operation card", operationData)
@@ -22,13 +25,13 @@ const OperationCard: React.FC<{operationData: Operation}> = ({operationData}) =>
     <div className="content">
       
       <img src={"data:image/png;base64,"+operationData.image} />
-      <h3>{operationData.name}</h3>
+      <h3>{operationData.data.name}</h3>
     </div>
   </div>
   <div className="face face2">
     <div className="content">
       <div>
-      <Link to={`/operation/${operationData.pk}`}>
+      <Link to={`/operation/${operationData.data.pk}`}>
                 <AddButton/>
               </Link>
       </div>

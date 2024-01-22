@@ -1,5 +1,5 @@
 import defaultImage from './Default.png';
-import { getMockOperations} from '../../assets/MockOperations.ts';
+import { getMockOperations, getFilteredMocks} from '../../assets/MockOperations.ts';
 
 
 
@@ -19,7 +19,7 @@ export interface OpRes {
 }
 
 export const GetFilteredOps = async (titleData: string): Promise<OpRes> => {
-    const mockOperations = getMockOperations();
+    const mockOperations = getFilteredMocks(titleData);//getMockOperations();
     console.log("mock operation", mockOperations);
     try {
         const params = new URLSearchParams({

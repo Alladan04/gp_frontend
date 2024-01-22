@@ -6,7 +6,7 @@ import {
 import OperationCard from './OperationCard.tsx';
 import SearchOperation from './Search.tsx';
 import './styles/OperationsPage.css'
-import MyNavBar from '../NavBar/NavBar.tsx'
+import MyNavBar from '../MyNavBar/NavBar.tsx'
 //import { Breadcrumb } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import BreadCrumbs from '../BreadCrumb/BreadCrumb.tsx'
