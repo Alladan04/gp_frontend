@@ -8,7 +8,7 @@ const mockOperations = [
         description: 'Дизъю́нкция, логи́ческое сложе́ние, логи́ческое ИЛИ, включа́ющее ИЛИ; иногда просто ИЛИ — логическая операция, по своему применению максимально приближённая к союзу «или» в смысле «или то, или это, или оба сразу». Дизъюнкция может быть операцией как бинарной, так и n-арной для произвольного n',
         status: 'действует',
        },
-       image: getimg(),
+       image: getimg(1),
        
     },
     {
@@ -19,7 +19,7 @@ const mockOperations = [
         description: 'Конъю́нкция — логическая операция, по смыслу максимально приближенная к союзу «и». Синонимы: логи́ческое «И», логи́ческое умноже́ние, иногда просто «И». Конъюнкция может быть бинарной операцией, тернарной операцией, или n-арной операцией.',
         status: 'действует',
        },
-       image: getimg(),
+       image: getimg(2),
        
     },
     {
@@ -30,7 +30,7 @@ const mockOperations = [
         description: 'Отрица́ние в логике — унарная операция над суждениями, результатом которой является суждение, «противоположное» исходному. Обозначается знаком ¬ перед или чертой — над суждением. ',
         status: 'действует',
        },
-       image: getimg(),
+       image: getimg(3),
        
     }
 ]
@@ -42,13 +42,7 @@ export const getMockOperations = () => {
     };
 };
 export interface Operation {
-    //id = models.IntegerField(primary_key=True)
-   //name = models.CharField(max_length=30, blank=True, null=True)
-   //status = models.CharField(max_length =30, blank=True, null=True)  # This field type is a guess.
-   //type = models.CharField(max_length = 30, blank=True, null=True)  # This field type is a guess.
-   //#price = models.FloatField(blank=True, null=True)  # This field type is a guess.
-   ///description = models.TextField(blank=True, null=True)
-   //img_src = models.CharField(max_length=200, blank = True, null = True)
+    
     id: number;
     img_src: string;
     image: string;
@@ -84,7 +78,15 @@ export const getMockOperation = (pk:number) :Operation =>{
 
 export const getFilteredMocks=(titleData:string)=>{
     let mocks = getMockOperations()
-    mocks.operations = mocks.operations.filter(number => number.data.name.includes(titleData.toLowerCase()));
-    return mocks
+    let arr = [];
+    console.log(titleData)
+    for (let i = 0; i<mocks.operations.length;i++){
+        if (mocks.operations[i].data.name.toLowerCase().includes(titleData.toLowerCase() )){
+            arr.push(mocks.operations[i])
+        }
+    }
+    
+    console.log(arr)
+    return {operations: arr}
 
 }
