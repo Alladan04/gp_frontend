@@ -1,6 +1,5 @@
-import defaultImage from './Default.png';
+//import defaultImage from './Default.png';
 import {  getFilteredMocks} from '../../assets/MockOperations.ts';
-
 
 
 export interface Operation {
@@ -20,7 +19,7 @@ export interface OpRes {
 
 export const GetFilteredOps = async (titleData: string): Promise<OpRes> => {
     const mockOperations = getFilteredMocks(titleData);//getMockOperations();
-    console.log("mock operation", mockOperations);
+    //console.log("mock operation", mockOperations);
     try {
         const params = new URLSearchParams({
             text: titleData,
@@ -48,7 +47,7 @@ export const GetFilteredOps = async (titleData: string): Promise<OpRes> => {
         if (Array.isArray(Operations)) {
             Operations.forEach(item => {
                 if (!item.image) {
-                    item.image = defaultImage;
+                    //item.image = defaultImage;
                 }
             });
         }

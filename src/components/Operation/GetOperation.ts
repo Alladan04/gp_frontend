@@ -33,7 +33,7 @@ export interface Operation {
          }
         }
          const data: Operation = await response.json();
-         console.log("OUR DATA", data);
+         //console.log("OUR DATA", data);
          return {
            
             data: [data],

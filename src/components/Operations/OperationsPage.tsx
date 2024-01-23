@@ -40,7 +40,7 @@ function Operations() {
     const no_data = (Operation_.data.length ==0);
     let button;
     if (no_data) {
-         button = <h1 style = {{color:'white',marginBottom:'200px'}}>-No data found!</h1> } 
+         button = <h1 style = {{color:'white',marginBottom:'200px'}}>Не найдены операции!</h1> } 
     else 
     {     
         button =  Operation_.data.map((object) => {

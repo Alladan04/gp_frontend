@@ -88,21 +88,12 @@ const Operation = () => {
         <div className="description">
           <p>{Operation_.data.description}</p>
         </div>
-        <span className="stock"><i className="fa fa-pen"></i></span>
-        <div className="reviews">
-          <ul className="stars">
-            <li><i className="fa fa-star"></i></li> 
-            <li><i className="fa fa-star-o"></i></li>
-          </ul>
-          <span></span>
-        </div>
+        
+       
       </div>
     </div>
     <div className="card__footer">
-      <div className="recommend">
-        <p>Recommended by</p>
-        <h3>Allochka Danielyan</h3>
-      </div>
+    
       <div className="action">
         <button type="button">Добавить в заявку</button>
       </div>
